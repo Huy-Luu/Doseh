@@ -4,7 +4,97 @@ const cardSection = document.getElementById('card-section');
 const book = document.querySelector('.book'); // Changed from .card
 const gameSection = document.getElementById('game-section');
 
-// 1. Scroll Functionality
+// Story Elements
+const heroSection = document.getElementById('hero');
+const storyText = document.getElementById('story-text');
+const storyImage = document.getElementById('story-image');
+const storyContainer = document.getElementById('story-container');
+
+// Story Data
+const storySteps = [
+    { text: "Good morning Doseh! <span class='emoji'>❤️</span>", img: "https://placehold.co/250x250/ff9ebd/white?text=Morning", size: "normal" },
+    { text: "How is your wisdom tooth doing?", img: "https://placehold.co/250x250/ff9ebd/white?text=Wisdom+Tooth", size: "normal" },
+    { text: "I hope you are doing better!", img: "https://placehold.co/250x250/ff9ebd/white?text=Better", size: "normal" },
+    { text: "You know what day today is right?", img: "https://placehold.co/250x250/ff9ebd/white?text=What+Day", size: "small" },
+    { text: "Happy Valentines Day!", img: "https://placehold.co/250x250/ff9ebd/white?text=Valentines", size: "big" }
+];
+
+let currentStoryIndex = 0;
+let isAnimating = false;
+
+// 1. Hero Story Functionality
+function renderStory(index) {
+    if (index >= storySteps.length) return;
+
+    const step = storySteps[index];
+
+    // Fade out
+    storyText.classList.add('fade-out');
+    storyImage.classList.add('fade-out');
+
+    // Wait for full transition (800ms)
+    setTimeout(() => {
+        // Update content
+        storyText.innerHTML = step.text;
+        storyImage.src = step.img;
+
+        // Reset classes
+        storyText.className = 'story-text';
+        if (step.size) storyText.classList.add(step.size);
+
+        // Force reflow to ensure browser registers the change if needed
+        void storyText.offsetWidth;
+
+        // Fade in (remove fade-out, default opacity is 1)
+        storyText.classList.remove('fade-out');
+        storyImage.classList.remove('fade-out');
+        storyText.classList.add('fade-in');
+        storyImage.classList.add('fade-in');
+
+        // Confetti for Big Step
+        if (step.size === 'big') {
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff8fa3', '#fff']
+            });
+        }
+
+        isAnimating = false;
+
+        // Clean up fade classes
+        setTimeout(() => {
+            storyText.classList.remove('fade-in');
+            storyImage.classList.remove('fade-in');
+        }, 800);
+
+    }, 800); // Wait full 800ms for fade out
+}
+
+// Initial Render
+renderStory(0);
+
+// Click interaction
+heroSection.addEventListener('click', (e) => {
+    // Don't trigger if clicking the button
+    if (e.target === scrollBtn) return;
+
+    if (isAnimating) return;
+
+    if (currentStoryIndex < storySteps.length - 1) {
+        isAnimating = true;
+        currentStoryIndex++;
+        renderStory(currentStoryIndex);
+    } else if (currentStoryIndex === storySteps.length - 1) {
+        // Show button if not already shown
+        if (scrollBtn.classList.contains('hidden')) {
+            scrollBtn.classList.remove('hidden');
+            scrollBtn.classList.add('fade-in');
+        }
+    }
+});
+
 scrollBtn.addEventListener('click', () => {
     cardSection.scrollIntoView({ behavior: 'smooth' });
 });
@@ -161,6 +251,9 @@ function showCompletion() {
     completionView.classList.remove('hidden');
     gameGrid.classList.add('hidden'); // Optional: hide grid
 
+    // Trigger Big Fireworks
+    launchFireworks();
+
     memories.forEach(mem => {
         const li = document.createElement('li');
         li.innerHTML = `
@@ -169,6 +262,29 @@ function showCompletion() {
         `;
         memoriesList.appendChild(li);
     });
+}
+
+function launchFireworks() {
+    var duration = 3 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    var interval = setInterval(function () {
+        var timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        var particleCount = 50 * (timeLeft / duration);
+        // since particles fall down, start a bit higher than random
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
 }
 
 initGame();
