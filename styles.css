@@ -1,0 +1,564 @@
+:root {
+    /* WebDev Reference Palette */
+    --primary-color: #6a0dad;
+    /* Purple */
+    --secondary-color: #ff9ebd;
+    /* Pink */
+    --background-dark: #1a0b12;
+    --text-color: #fff0f5;
+    --accent-color: #fff;
+    --card-bg: #fff;
+    --text-dark: #333;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+
+    --transition-speed: 0.8s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a0b12 0%, #2d1b2e 100%);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.full-screen-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+/* Hero Section */
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.emoji {
+    display: inline-block;
+    animation: heartBeat 1.5s infinite;
+}
+
+.cta-button {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    border-radius: 50px;
+    animation: fadeInUp 2s ease-out;
+}
+
+.cta-button:hover {
+    background: var(--primary-color);
+    color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+}
+
+/* 3D Book Section */
+/* 3D Book Section */
+.book-container {
+    perspective: 1500px;
+    width: 100%;
+    height: 600px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book {
+    width: 350px;
+    /* Standard card size */
+    height: 500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateX(0);
+}
+
+/* Hover Interaction: Open book and shift to center spread */
+.book:hover {
+    transform: translateX(175px);
+}
+
+/* The Front Cover Container (Rotates) */
+.book-cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: default;
+    /* Hover effect handles open */
+    z-index: 10;
+}
+
+.book:hover .book-cover {
+    transform: rotateY(-180deg);
+}
+
+/* Faces of the Cover */
+.book-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    /* Soft shadow behind the card */
+    box-shadow: 0 10px 30px rgba(106, 13, 173, 0.3);
+}
+
+/* Front of Cover (Closed State) */
+.cover-front {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    border: 15px solid var(--primary-color);
+}
+
+/* Heart Shapes composed via CSS */
+.heart-shape {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: var(--primary-color);
+    transform: rotate(-45deg);
+    border-radius: 10px;
+    /* Base for heart */
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart-shape::before {
+    top: -60px;
+    left: 0;
+}
+
+.heart-shape::after {
+    top: 0;
+    left: 60px;
+}
+
+.heart-purple {
+    background-color: var(--primary-color);
+    top: 35%;
+    left: 48%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    opacity: 1;
+    z-index: 1;
+}
+
+.heart-pink {
+    background-color: var(--secondary-color);
+    top: 48%;
+    left: 28%;
+    transform: translate(-20%, -20%) rotate(-45deg);
+    z-index: 2;
+}
+
+.cover-design {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    /* Text at bottom */
+    padding-bottom: 4rem;
+    z-index: 10;
+}
+
+.cover-design h2 {
+    font-family: 'Playfair Display', cursive;
+    /* Script-ish looks */
+    font-size: 2.5rem;
+    color: #333;
+    z-index: 5;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.cover-design .instruction-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #333;
+    opacity: 0.7;
+    text-transform: lowercase;
+    position: absolute;
+    bottom: 20px;
+}
+
+/* Back of Cover (Inside Left - Open State) */
+.cover-back {
+    background-color: var(--primary-color);
+    /* Purple */
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+}
+
+/* Abstract Brush Strokes using Border Radius shapes */
+.brush-stroke {
+    position: absolute;
+    background: #fff;
+    opacity: 0.8;
+    border-radius: 50% 20% / 10% 40%;
+}
+
+.stroke-1 {
+    top: 10%;
+    right: 10%;
+    width: 50px;
+    height: 80px;
+    transform: rotate(15deg);
+}
+
+.stroke-2 {
+    bottom: 15%;
+    left: 10%;
+    width: 60px;
+    height: 90px;
+    transform: rotate(-10deg);
+}
+
+.stroke-3 {
+    top: 40%;
+    right: 5%;
+    width: 30px;
+    height: 60px;
+    transform: rotate(45deg);
+}
+
+.pink-rectangle {
+    width: 160px;
+    height: 300px;
+    background-color: var(--secondary-color);
+    /* Pink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    z-index: 5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pink-rectangle h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin: 1.5rem 0;
+    line-height: 1;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+/* Back Page (Inside Right - Static) */
+.book-back-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 0;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollable-paper {
+    width: 85%;
+    height: 85%;
+    overflow-y: auto;
+    padding: 2rem;
+    color: #4a4a4a;
+    /* Soft black */
+    line-height: 1.9;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    /* Elegant ruled lines */
+    background-image: repeating-linear-gradient(transparent, transparent 31px, #e5e5e5 31px, #e5e5e5 32px);
+    background-color: transparent;
+    position: relative;
+    z-index: 6;
+    border: none;
+}
+
+/* Hide scrollbar for cleaner look */
+.scrollable-paper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-paper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.letter-content h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1.5rem;
+    color: #8a1c1c;
+    /* Match cover red */
+    font-size: 1.8rem;
+    border-bottom: 2px solid #8a1c1c;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.instruction-text {
+    margin-top: 1rem;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+/* Specific content styles */
+.flower-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e63946;
+    padding: 2rem;
+    border: 2px dashed #ffccd5;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+
+.flower-placeholder p {
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Game Section */
+.game-container {
+    max-width: 900px;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.heart-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 80px);
+    /* Fixed width columns to ensure shape holds */
+    gap: 15px;
+    margin: 2rem auto;
+    width: fit-content;
+    justify-content: center;
+}
+
+.memory-card {
+    width: 80px;
+    height: 80px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    /* Circles looks cute */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: transform 0.4s, background-color 0.4s;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.memory-card:hover {
+    transform: scale(1.1);
+}
+
+.memory-card.flipped {
+    background-color: var(--card-bg);
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+    background-color: var(--primary-color);
+    animation: pulse 1s;
+    cursor: default;
+}
+
+.memory-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: none;
+}
+
+.memory-card.flipped img,
+.memory-card.matched img {
+    display: block;
+}
+
+/* Heart Shape Grid visibility */
+/* We will use specific classes or JS to hide corners to make a heart shape */
+.hidden-cell {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.3s;
+}
+
+.popup-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 400px;
+    text-align: center;
+    color: var(--text-dark);
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+}
+
+.popup-content img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.popup-content button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Completion View */
+#completion-view {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+#memories-list {
+    list-style: none;
+    text-align: left;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+#memories-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#memories-list img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.3);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.3);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* Utility to hide elements */
+.hidden {
+    display: none !important;
+}

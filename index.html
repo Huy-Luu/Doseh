@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Doseh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Section 1: Hero -->
+    <section id="hero" class="full-screen-section">
+        <div class="content-wrapper">
+            <h1 class="main-title">
+                Good morning my Doseh <span class="emoji">❤️</span><br>
+                Happy Valentines Day!
+            </h1>
+            <button id="scroll-btn" class="cta-button">
+                I wrote out my feelings for you
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 2: 3D Book Card -->
+    <section id="card-section" class="full-screen-section">
+        <div class="book-container">
+            <div class="book">
+                <!-- Front Cover (Rotates) -->
+                <div class="book-cover">
+                    <!-- Cover Front Design -->
+                    <div class="book-face cover-front">
+                        <div class="cover-design">
+                            <div class="heart-shape heart-purple"></div>
+                            <div class="heart-shape heart-pink"></div>
+                            <h2>Happy<br>Valentine's<br>Day</h2>
+                            <p class="instruction-text">hover me</p>
+                        </div>
+                    </div>
+                    <!-- Cover Back (Inside Left - Brush Strokes) -->
+                    <div class="book-face cover-back">
+                        <div class="brush-stroke stroke-1"></div>
+                        <div class="brush-stroke stroke-2"></div>
+                        <div class="brush-stroke stroke-3"></div>
+                        <div class="pink-rectangle">
+                            <div class="feather-icon">
+                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                                    <line x1="16" y1="8" x2="2" y2="22"></line>
+                                    <line x1="17.5" y1="15" x2="9" y2="15"></line>
+                                </svg>
+                            </div>
+                            <h3>with<br>love</h3>
+                            <div class="branch-icon">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 21c3-3 6-8 12-11"></path>
+                                    <path d="M15 10a5 5 0 1 1-5 5"></path>
+                                    <path d="M9.5 13.5l1.5 1.5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Page (Static Base - Inside Right - Letter) -->
+                <div class="book-back-page">
+                    <div class="letter-content scrollable-paper">
+                        <p class="greeting-text">With Love,<br>from My Doseh</p>
+                        <div class="logo-placeholder">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Memory Game -->
+    <section id="game-section" class="full-screen-section">
+        <div class="game-container">
+            <h2>Find Our Memories</h2>
+            <div id="game-grid" class="heart-grid">
+                <!-- Game cards will be generated here by JS -->
+            </div>
+            <div id="memory-popup" class="popup hidden">
+                <div class="popup-content">
+                    <img id="popup-img" src="" alt="Memory">
+                    <p id="popup-text"></p>
+                    <button id="close-popup">Close</button>
+                </div>
+            </div>
+            <div id="completion-view" class="hidden">
+                <h3>Happy Valentines Day My Precious and to us!</h3>
+                <ul id="memories-list"></ul>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
